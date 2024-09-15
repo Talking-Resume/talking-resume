@@ -1,0 +1,14 @@
+{
+    "type": "service_account",
+    "project_id": "our-chess-423409-q7",
+    "private_key_id": "2d1c3b73eb7b04879b6bac9bd7563106fc46f0b6",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCaSQeMfI57Qc6j\nUSwNSWNifM47WSXuZC6ENPJyKilk2q95DVvBJsMrIWatAlk5hHgpCrcx0glLBH2u\nyWK1x3Euq3csFCHkBy8IAgEu04XccnRdZab0avy3xQDEk4sqq/4USxD+6fT9PHEJ\nh8MpgwxgvrEjvJSzoCjynabPoQ4JyGIRgFRResgt5YYcjnlTH1MCGRvp0qFUeHaO\n6032azQp1TvmQbCGTRTXiB9uGro6XvdaLUF+gHd8N1b67Hl0qzhGh/IM81Ww564H\nwONr5184qu0y/4UY+A6k47rErqGQcV8hltB26RrHqJEM10NcOQ2NqawQTvDGcYdE\nEasvt4sFAgMBAAECggEAHJz5JayO9xx6AG9kKlWnNSN80uRiZL8XImU4ZoRbt2zY\nOKzJzL1N2lCgPGtQVVq0NzZZycdQemVrkrAeGqTRoIxjtlzIeUP8zLEke4T2kS73\n1j9tMmyqEEHctdhAKcqKfUR7sy78BMACHbicMPVxJPsQmpZVhKeqGG60+lI96oHB\ntXx4hvAhvWytAs/mABd9FD10uEXdxfljvuTSKwgNO6rohyBrT6Z5GrmmCUDW4NWH\nr/9V0EaDFtljN1XACwfqxuAJKU+V8rWY4WJXwfEnlYK+uoTvKx+syrr8vN+mO7GZ\n93HnOiyVLNoHS+7L97uT8UrrG5L1BFUG6JrdCUXVWQKBgQDKo1y4lccTZ+YYyDQK\nxTlJtae+cpx0qRJlFjfzFZhjOf4EN6ZOBrPe5ELbHvZEzx3+NfsTqY28kCU6D+NV\nR3q/udk/uhX9nrnX9vq+thqK4RaumsdbKtMivYtyFisFN5PD67u8beOdWUYHG6hI\nDR/qx11tESz3HgKz7mXaf30n6QKBgQDC6gJ6AjdX9b5AD5y0OBGZxyRok54zn6Bl\nfqY+AoDTD0Cocfav6EH9jmgy6zVTuG3XYfuOo3BfEjR/C0XQjrBcmpZxNkBLv5oq\nGww/S7GjGXwiIiuw1xbZI4/r4gJeUNrVS3VM2ZZUff5HHICFt0XWZivNHzL7Oe1W\nkqhMzq/0vQKBgGYgq2yEYE8RgFBhJol/GP5jRWWg0eWiCJlV92DWM3VfFvz9Jx4Q\nFrtxg5h4JFpNoKosfpxMShkM9RYsR8EFQ4I5opqRqN+oDbYgzgMsOHhiNVJOw8bY\n8IyDxzH6pjf86MZHmti+8YauJbMTZ17Y7osfa6C6lVT+lRImRsM2mddxAoGAF+Zh\nz1weNSbo4SoI6QBHCDgm+ru/Fk1oeYmCEPB1o2unXgA7Y25zSQgBNt0oeM+QiGx3\nUBIyYTX2Qe277crRTUmXUOJ6F8+ys58FbW12pq0lT3opKVH2d0GpEB9ycuYvLyBF\njdrQWCPq3gVcrQjAA34buNcuhSehNpBdGq3tXXECgYAgyDTXhx5t5UodSTGdQss3\n2rL3LaGfBILR7yYa4SPzZ1SBqsiENsgYkDGytMWZ6T5s9G3RYaiwroRK2gMHfn76\nPJl7+5Vl8Kyo9dn6e+XTX2SjtHwzcaOd2Ccnhe7xIcid8qBJzWHXqWZSvuEp3ZQI\nJRbf+IM3oPKz/2BoO6YFQw==\n-----END PRIVATE KEY-----\n",
+    "client_email": "our-chess-423409-q7@appspot.gserviceaccount.com",
+    "client_id": "112666907497990297284",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/our-chess-423409-q7%40appspot.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
+  
