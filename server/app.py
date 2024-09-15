@@ -9,7 +9,10 @@ from langchain_core.messages import HumanMessage
 query = input("Enter your Question here:")
 
 prompts = "You are an AI assistant."
+try:
+    response = model.invoke([HumanMessage(content=f"{prompts} Here is your question {query}")])
+    print(response.content)
+except:
+    print("Error found!")
 
-response = model.invoke([HumanMessage(content=f"{prompts} Here is your question {query}")])
-
-print(response.content)
+    
