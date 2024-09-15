@@ -1,4 +1,4 @@
-.DS_Store
+../.DS_Store
 .env
 dist/
 build/
@@ -8,3 +8,4 @@ build/
 .vscode/
 *.iml
 coverage/
+server/our-chess-423409-q7-2d1c3b73eb7b
