@@ -1,0 +1,13 @@
+../.DS_Store
+.env
+dist/
+build/
+*.log
+*.tmp
+.idea/
+.vscode/
+*.iml
+coverage/
+*/soy-coast-435711-v9-46fd5dfd314e.json
+*.pdf
+*.__pycache__
