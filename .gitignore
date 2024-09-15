@@ -8,4 +8,7 @@ build/
 .vscode/
 *.iml
 coverage/
-server/our-chess-423409-q7-2d1c3b73eb7b
+soy-coast-435711-v9-46fd5dfd314e.json
+*.pdf
+*.__pycache__
+
