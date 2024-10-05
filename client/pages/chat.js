@@ -67,10 +67,19 @@ function Chat() {
           },
         });
 
+        let aiContent = response.data.response
+        .replace(/\n/g, "<br />")
+        .replace(/### (.*?)(<br \/>|$)/g, "<h3>$1</h3>")
+        .replace(/## (.*?)(<br \/>|$)/g, "<h2>$1</h2>")
+        .replace(/# (.*?)(<br \/>|$)/g, "<h1>$1</h1>")
+        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+        .replace(/\*(.*?)\*/g, "<i>$1</i>")
+        .replace(/__(.*?)__/g, "<u>$1</u>");
+
         const aiMessage = {
           sender: 'ai',
           user: 'AI',
-          content: response.data.response,
+          content: aiContent,
           timestamp: new Date().toISOString(),
         };
 
@@ -82,6 +91,26 @@ function Chat() {
     }
   };
 
+  const handleSummary = async () => {
+    try {
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) {
+        throw sessionError;
+      }
+
+      const response = await axios.get('http://127.0.0.1:8000/summary', {
+        headers: {
+          'Authorization': `Bearer ${sessionData.session.access_token}`,
+        },
+      });
+
+      console.log("Summary response:", response.data);
+      router.push('/summary');
+    } catch (error) {
+      console.error("Error fetching summary:", error);
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -89,7 +118,7 @@ function Chat() {
         <div className="relative w-full mx-auto max-w-screen-xl py-12 sm:py-16 xl:pb-0">
           <div className="relative m-10 px-4 sm:px-6 lg:px-4 flex flex-col items-center">
             <h1 className="text-3xl font-bold text-gray-800 mb-8">Chat Interface</h1>
-            <div className="flex flex-col items-center w-full max-w-lg">
+            <div className="flex flex-col items-center w-full max-w-4xl">
               <div className="w-full h-96 bg-gray-100 rounded-lg p-4 overflow-y-auto">
                 {messages.map((msg, index) => (
                   <div
@@ -99,7 +128,14 @@ function Chat() {
                     }`}
                   >
                     <div className="text-sm text-gray-600">{msg.user}</div>
-                    <div className="text-lg">{msg.content}</div>
+                    {msg.sender === 'ai' ? (
+                      <div
+                        className="text-lg"
+                        dangerouslySetInnerHTML={{ __html: msg.content }}
+                      />
+                    ) : (
+                      <div className="text-lg">{msg.content}</div>
+                    )}
                     <div className="text-xs text-gray-500">{new Date(msg.timestamp).toLocaleTimeString()}</div>
                   </div>
                 ))}
@@ -128,6 +164,25 @@ function Chat() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </button>
+                <button
+                  onClick={handleSummary}
+                  className="ml-4 group flex items-center justify-center rounded py-2 px-4 text-center font-bold bg-green-600"
+                >
+                  <span className="text-white">Summary</span>
+                  <svg
+                    className="ml-2 h-6 w-6 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 12h14M12 5l7 7-7 7"
                     />
                   </svg>
                 </button>

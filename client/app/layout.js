@@ -3,7 +3,6 @@ import "../styles/globals.css";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Steps from "@/components/ui/steps";
-import Dashboard from "@/components/Dashboard";
 import Main from "@/components/Main";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
