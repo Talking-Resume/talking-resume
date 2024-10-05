@@ -1,6 +1,7 @@
 import logging
 import requests
 import aiohttp
+import re
 import base64,uuid
 from fastapi import FastAPI, HTTPException, UploadFile, File, Depends
 from fastapi.middleware.cors import CORSMiddleware
@@ -93,8 +94,6 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
     token = credentials.credentials
     user_response = supabase.auth.get_user(token)
 
-    logger.info(f"User response: {user_response}")
-
     # Check if the user attribute exists in the user_response object
     if not user_response or not hasattr(user_response, 'user'):
         raise HTTPException(status_code=401, detail="Invalid authentication credentials")
@@ -124,19 +123,21 @@ async def chat_resume(request: ChatRequest, user: dict = Depends(get_current_use
 @app.get("/summary")
 async def get_summary(user: dict = Depends(get_current_user)):
     try:
-        # Get the chat history from memory
         chat_history = memory.chat_memory.messages
+        if not chat_history:
+            raise HTTPException(status_code=400, detail="Chat history is empty")
         file_url = supabase.storage.from_('uploads').get_public_url(f'{user.id}/Resume.pdf')
-        resume_content=await extract_text_from_url(file_url)
-        # Summarize the chat history
+        resume_content = await extract_text_from_url(file_url)
         summary_prompt = ChatPromptTemplate.from_messages(
-            [
-                ("system", f"You are an AI assistant. Summarize the following chat history and provide suggestions for improvements, strengths, and weaknesses based on the {resume_content}."),
-                ("human", f"{chat_history}")
-            ]
-        )
+    [
+        ("system", "You are an AI assistant. Summarize the following chat history and provide suggestions for improvements, strengths, and weaknesses based on the resume content."),
+        ("human", f"{chat_history}") 
+    ]
+)
         summary_chain = summary_prompt | model | parser
-        summary_response = summary_chain.invoke({"input": chat_history})
+        summary_response = summary_chain.invoke({"input": f"{resume_content}"})
+
+        print(summary_response)
 
         return {"summary": summary_response}
     except Exception as e:
