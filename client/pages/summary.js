@@ -7,22 +7,51 @@ import { supabase } from '@/supabase/client';
 import axios from 'axios';
 
 const SummaryPage = () => {
-  const [summary, setSummary] = useState('');
+  const [summaryData, setSummaryData] = useState({
+    summary: '',
+    improvements: [],
+    strengths: [],
+    weaknesses: []
+  });
   const [error, setError] = useState('');
   const [user, setUser] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
-    const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        router.push('/login');
-      } else {
+    const checkUserAndFetchSummary = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          router.push('/login');
+          return;
+        }
+
         setUser(user);
+
+        const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+        if (sessionError) {
+          throw sessionError;
+        }
+
+        if (sessionData?.session?.access_token) {
+          const response = await axios.get('http://127.0.0.1:8000/summary', {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${sessionData.session.access_token}`,
+            },
+          });
+
+          setSummaryData(response.data.summary_sections);
+        } else {
+          setError('No active session');
+        }
+      } catch (err) {
+        setError('Failed to fetch summary');
+        console.error(err);
       }
     };
 
-    checkUser();
+    checkUserAndFetchSummary();
 
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       if (!session?.user) {
@@ -37,51 +66,100 @@ const SummaryPage = () => {
     };
   }, [router]);
 
-  useEffect(() => {
-    const fetchSummary = async () => {
-      try {
-        const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-        if (sessionError) {
-          throw sessionError;
-        }
-
-        const response = await axios.get('http://127.0.0.1:8000/summary', {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${sessionData.session.access_token}`,
-          },
-        });
-        setSummary(response.data.summary);
-      } catch (err) {
-        setError('Failed to fetch summary');
-        console.error(err);
-      }
-    };
-
-    if (user) {
-      fetchSummary();
-    }
-  }, [user]);
-
   return (
     <>
       <Header />
       <div className="overflow-x-hidden overflow-y-hidden flex items-center justify-center min-h-screen">
-        <div className="relative mx-auto max-w-screen-xl py-12 sm:py-16 xl:pb-0 bg-gray-100">
-          <div className="relative m-10 px-4 sm:px-6 lg:px-4 flex flex-col items-center">
-            <h1 className="text-3xl font-bold text-gray-800 mb-8">Chat Summary</h1>
-            {error && (
-              <div className="mb-4 text-red-500">
-                {error}
-              </div>
-            )}
-            <div className="flex flex-col items-center w-full max-w-4xl">
-              <div className="w-full bg-white rounded-lg p-4">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">Summary</h2>
-                <p className="text-gray-600">{summary}</p>
+        <div className="relative m-10 px-4 sm:px-6 lg:px-4 flex flex-col items-center">
+          {error && (
+            <div className="mb-4 text-red-500">
+              {error}
+            </div>
+          )}
+          <div className="flex justify-center items-center">
+                <h2 className="mb-8 text-4xl font-bold tracking-tighter text-blue-600 lg:text-6xl md:text-5xl animate-jump-in animate-once animate-delay-800 animate-ease-linear animate-fill-both text-center">
+                  <span>Insights </span>
+                  <br className="hidden lg:block"></br>
+                </h2>
+                </div>
+          {summaryData.summary && (
+            <div className="container bg-black mx-auto w-full">
+              
+             
+              <div className="relative wrap overflow-hidden p-10 h-full">
+                <div
+                  className="border-2-2 absolute border-opacity-20 border-white h-full border"
+                  style={{ left: "50%" }}
+                ></div>
+
+                <div className="mb-8 flex justify-between items-center w-full right-timeline">
+                  <div className="order-1 w-5/12"></div>
+                  <div className="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full">
+                    <h1 className="mx-auto font-semibold text-lg text-white">1</h1>
+                  </div>
+                  <div className="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4 animate-wiggle animate-thrice animate-duration-[5000ms] animate-ease-linear">
+                    <h3 className="mb-3 font-bold text-gray-800 text-xl">
+                      Summary
+                    </h3>
+                    <p className="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100">
+                      {summaryData.summary}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                  <div className="order-1 w-5/12"></div>
+                  <div className="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full">
+                    <h1 className="mx-auto text-white font-semibold text-lg">2</h1>
+                  </div>
+                  <div className="order-1 bg-blue-600 rounded-lg shadow-xl w-5/12 px-6 py-4 animate-wiggle animate-thrice animate-duration-[5000ms] animate-ease-linear">
+                    <h3 className="mb-3 font-bold text-white text-xl">
+                      Improvements
+                    </h3>
+                    <ul className="text-sm font-medium leading-snug tracking-wide text-white text-opacity-100 list-disc list-inside">
+                      {summaryData.improvements.map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mb-8 flex justify-between items-center w-full right-timeline">
+                  <div className="order-1 w-5/12"></div>
+                  <div className="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full">
+                    <h1 className="mx-auto font-semibold text-lg text-white">3</h1>
+                  </div>
+                  <div className="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4 animate-wiggle animate-thrice animate-duration-[5000ms] animate-ease-linear">
+                    <h3 className="mb-3 font-bold text-gray-800 text-xl">
+                      Strengths
+                    </h3>
+                    <ul className="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100 list-disc list-inside">
+                      {summaryData.strengths.map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                  <div className="order-1 w-5/12"></div>
+                  <div className="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full">
+                    <h1 className="mx-auto text-white font-semibold text-lg">4</h1>
+                  </div>
+                  <div className="order-1 bg-blue-600 rounded-lg shadow-xl w-5/12 px-6 py-4 animate-wiggle animate-thrice animate-duration-[5000ms] animate-ease-linear">
+                    <h3 className="mb-3 font-bold text-white text-xl">
+                      Weaknesses
+                    </h3>
+                    <ul className="text-sm font-medium leading-snug tracking-wide text-white text-opacity-100 list-disc list-inside">
+                      {summaryData.weaknesses.map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>
