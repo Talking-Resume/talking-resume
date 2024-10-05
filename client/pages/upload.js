@@ -86,6 +86,9 @@ function Upload() {
   
         console.log("File uploaded successfully:", data);
         setUploadStatus('File Uploaded Successfully!');
+        
+        // Redirect to /chat after successful upload
+        router.push('/chat');
       } catch (error) {
         console.error("Error uploading file:", error.message);
         setUploadStatus('Failed to upload file');
