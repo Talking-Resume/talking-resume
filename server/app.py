@@ -2,6 +2,7 @@ import logging
 import requests
 import aiohttp
 import re
+import json
 import base64,uuid
 from fastapi import FastAPI, HTTPException, UploadFile, File, Depends
 from fastapi.middleware.cors import CORSMiddleware
@@ -123,23 +124,32 @@ async def chat_resume(request: ChatRequest, user: dict = Depends(get_current_use
 @app.get("/summary")
 async def get_summary(user: dict = Depends(get_current_user)):
     try:
-        chat_history = memory.chat_memory.messages
+        chat_history =  memory.chat_memory.messages
         if not chat_history:
             raise HTTPException(status_code=400, detail="Chat history is empty")
         file_url = supabase.storage.from_('uploads').get_public_url(f'{user.id}/Resume.pdf')
         resume_content = await extract_text_from_url(file_url)
         summary_prompt = ChatPromptTemplate.from_messages(
             [
-                ("system", "You are an AI assistant. Summarize the following chat history and provide suggestions for improvements, strengths, and weaknesses based on the resume content."),
-                ("human", f"{input}") 
+                ("system", "You are an AI assistant. Speak as if in second party rather than third party , First Summarize the following chat history and provide suggestions for improvements, strengths, and weaknesses based on the resume content.Format the response as a JSON object with the keys 'summary', 'improvements', 'strengths', and 'weaknesses'."),
+                ("human", "{chat_history}\n{resume_content}")
             ]
         )
+        
         summary_chain = summary_prompt | model | parser
-        summary_response = summary_chain.invoke({"input": chat_history})
+        summary_response = summary_chain.invoke({"chat_history": chat_history, "resume_content": resume_content})
+        cleaned_summary_response = summary_response[8:-3]
+        logger.debug(f"Cleaned summary response: {cleaned_summary_response}")
+        try:
+            summary_sections = json.loads(cleaned_summary_response)
+        except json.JSONDecodeError as e:
+            logger.error(f"JSON decode error: {str(e)}")
+            raise HTTPException(status_code=500, detail="Internal server error: Invalid JSON format")
 
-        print(summary_response)
+        print(summary_sections)
 
-        return {"summary": summary_response}
+
+        return {"summary_sections":summary_sections}
     except Exception as e:
         logger.error(f"Error in get_summary: {str(e)}")
         raise HTTPException(status_code=500, detail="Internal server error")
