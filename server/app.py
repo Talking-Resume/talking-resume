@@ -129,13 +129,13 @@ async def get_summary(user: dict = Depends(get_current_user)):
         file_url = supabase.storage.from_('uploads').get_public_url(f'{user.id}/Resume.pdf')
         resume_content = await extract_text_from_url(file_url)
         summary_prompt = ChatPromptTemplate.from_messages(
-    [
-        ("system", "You are an AI assistant. Summarize the following chat history and provide suggestions for improvements, strengths, and weaknesses based on the resume content."),
-        ("human", f"{chat_history}") 
-    ]
-)
+            [
+                ("system", "You are an AI assistant. Summarize the following chat history and provide suggestions for improvements, strengths, and weaknesses based on the resume content."),
+                ("human", f"{input}") 
+            ]
+        )
         summary_chain = summary_prompt | model | parser
-        summary_response = summary_chain.invoke({"input": f"{resume_content}"})
+        summary_response = summary_chain.invoke({"input": chat_history})
 
         print(summary_response)
 
