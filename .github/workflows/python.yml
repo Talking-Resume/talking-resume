@@ -1,0 +1,41 @@
+name: Python CI
+
+on:
+  push:
+    paths:
+      - 'server/**'
+  pull_request:
+    paths:
+      - 'server/**'
+
+jobs:
+  format_and_lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12.3' 
+    - name: Install dependencies
+      run: |
+        cd server
+        pip install black isort flake8
+
+    - name: Run Black
+      run: |
+        cd server
+        black --check .
+
+    - name: Run isort
+      run: |
+        cd server
+        isort --check-only .
+
+    - name: Run Flake8
+      run: |
+        cd server
+        flake8 .

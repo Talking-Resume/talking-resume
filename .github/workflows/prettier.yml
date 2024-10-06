@@ -1,0 +1,33 @@
+name: Prettier Check
+
+on:
+  push:
+    branches:
+      - main
+      - '**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: List JS/JSX files
+        run: ls -R client || echo "No files found in client directory"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: client
+
+      - name: Run Prettier check
+        run: npx prettier --check "client/**/*.{js,jsx}"
