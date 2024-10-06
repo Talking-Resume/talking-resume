@@ -1,5 +1,6 @@
-import aiohttp
 from io import BytesIO
+
+import aiohttp
 import PyPDF2
 
 

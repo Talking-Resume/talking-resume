@@ -1,11 +1,13 @@
 import os
-from supabase import create_client
+
 import vertexai
 from dotenv import load_dotenv
-from langchain_google_vertexai import ChatVertexAI
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
 from langchain.memory import ConversationBufferMemory
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_google_vertexai import ChatVertexAI
+
+from supabase import create_client
 
 load_dotenv()
 

@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException
-from schema import ChatRequest
-from auth import get_current_user
-from utils import extract_text_from_url
-from config import supabase, chat_chain, memory
 import logging
 
+from auth import get_current_user
+from config import chat_chain, memory, supabase
+from fastapi import APIRouter, Depends, HTTPException
+from schema import ChatRequest
+from utils import extract_text_from_url
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

@@ -1,9 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException
-from auth import get_current_user
-from utils import extract_text_from_url
-from config import supabase, summary_chain, memory
-import logging
 import json
+import logging
+
+from auth import get_current_user
+from config import memory, summary_chain, supabase
+from fastapi import APIRouter, Depends, HTTPException
+from utils import extract_text_from_url
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
