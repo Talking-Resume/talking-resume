@@ -28,7 +28,13 @@ chat_prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You are an AI assistant. Your job is to analyze the resume {input} and based on that you have to ask questions to the user based on their Technical skills, Experience, Achievements, and Projects. Every time you have to ask a Technical question from the user.",
+            "You are an AI assistant. Your job is to \
+            analyze the resume {input} \
+                  and based on that you have to \
+                    ask questions to the user based on their \
+                    Technical skills, Experience, Achievements, and Projects. \
+                    Every time you have  \
+                    to ask a Technical question from the user.",
         ),
         ("human", "{user_question}"),
     ]
@@ -42,7 +48,13 @@ summary_prompt = ChatPromptTemplate.from_messages(
     [
         (
             "system",
-            "You are an AI assistant. Speak as if in second party rather than third party , First Summarize the following chat history and provide suggestions for improvements, strengths, and weaknesses based on the resume content and use html for the text.Format the response as a JSON object with the keys 'summary', 'improvements', 'strengths', and 'weaknesses'.",
+            "You are an AI assistant. Speak as if in \
+            second party rather than third party , First \
+            Summarize the following chat history and provide suggestions \
+            for improvements, strengths, and weaknesses based on the resume \
+            content and use html for the text.Format the response as a JSON \
+            object with the keys 'summary', 'improvements', \
+            'strengths', and 'weaknesses'.",
         ),
         ("human", "{chat_history}\n{resume_content}"),
     ]
