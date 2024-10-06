@@ -2,11 +2,12 @@ name: Python CI
 
 on:
   push:
-    paths:
-      - 'server/**'
+    branches:
+      - main
+      - '**'
   pull_request:
-    paths:
-      - 'server/**'
+    branches:
+      - main
 
 jobs:
   format_and_lint:
