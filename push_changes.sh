@@ -1,3 +1,4 @@
+
 # Exit immediately if a command exits with a non-zero status
 set -e
 
@@ -28,8 +29,9 @@ echo "Adding changes to git..."
 git add .
 
 # Commit changes
-echo "Committing changes..."
-git commit -m "Apply linting and formatting"
+COMMIT_MESSAGE=${1:-"Apply linting and formatting"}
+echo "Committing changes with message: $COMMIT_MESSAGE"
+git commit -m "$COMMIT_MESSAGE"
 
 # Push changes to the current branch
 echo "Pushing changes to the current branch..."
