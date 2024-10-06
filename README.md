@@ -163,7 +163,7 @@ We welcome your contributions to make Talking Resume even better! This guide out
 5. **Run Linting and Formatting and Push to your branch:**  Before committing your changes, run the provided script `push_to_github.sh` to ensure your code adheres to the project's formatting standards. This script automatically formats your code using Prettier (JavaScript/JSX), Black (Python), and isort (Python imports) and then pushes it to your branch. You can run the script from the project root directory:
 
    ```bash
-   ./push_to_github.sh
+   bash scripts/push_to_github.sh
    ```  
 
 6. **Create a Pull Request:**  Go to your forked repository on GitHub and navigate to the "Pull requests" tab. Click "New pull request" and select the branch containing your changes to compare it with the project's main branch. Write a clear description of your contribution and submit the pull request.
