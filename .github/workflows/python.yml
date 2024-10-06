@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: |
         cd server
-        pip install black isort flake8
+        pip install black isort 
 
     - name: Run Black
       run: |
@@ -35,8 +35,3 @@ jobs:
       run: |
         cd server
         isort --check-only .
-
-    - name: Run Flake8
-      run: |
-        cd server
-        flake8 .

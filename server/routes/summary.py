@@ -19,8 +19,7 @@ async def get_summary(user: dict = Depends(get_current_user)):
     try:
         chat_history = memory.chat_memory.messages
         if not chat_history:
-            raise HTTPException(
-                status_code=400, detail="Chat history is empty")
+            raise HTTPException(status_code=400, detail="Chat history is empty")
         file_url = supabase.storage.from_("uploads").get_public_url(
             f"{user.id}/Resume.pdf"
         )
@@ -37,8 +36,9 @@ async def get_summary(user: dict = Depends(get_current_user)):
         except json.JSONDecodeError as e:
             logger.error(f"JSON decode error: {str(e)}")
             raise HTTPException(
-                status_code=500, detail="Internal server error: \
-                    Invalid JSON format"
+                status_code=500,
+                detail="Internal server error: \
+                    Invalid JSON format",
             )
 
         return {"summary_sections": summary_sections}

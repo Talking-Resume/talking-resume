@@ -5,9 +5,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 security = HTTPBearer()
 
 
-def get_current_user(
-        credentials: HTTPAuthorizationCredentials = Depends(security)
-):
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
     """Get the current user from the Supabase auth service"""
     token = credentials.credentials
     user_response = supabase.auth.get_user(token)

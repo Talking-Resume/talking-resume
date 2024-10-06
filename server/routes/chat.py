@@ -13,9 +13,7 @@ router = APIRouter()
 
 
 @router.post("/")
-async def chat_resume(
-    request: ChatRequest, user: dict = Depends(get_current_user)
-):
+async def chat_resume(request: ChatRequest, user: dict = Depends(get_current_user)):
     """Chat with the AI using the resume content"""
     try:
         user_id = user.id
