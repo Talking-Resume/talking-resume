@@ -1,6 +1,7 @@
-from config import supabase
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+
+from config import supabase
 
 security = HTTPBearer()
 
