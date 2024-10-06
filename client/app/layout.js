@@ -28,8 +28,8 @@ export default function RootLayout({ children }) {
           fontSans.variable,
         )}
       >
-        <div className="main-container">
-          <div className="main-content">
+        <div className="main-container ">
+          <div className="main-content bg-cyan-800">
             <Header />
             <Hero />
 

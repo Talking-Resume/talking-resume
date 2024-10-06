@@ -43,7 +43,13 @@ function Upload() {
   }, [router]);
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    const selectedFile = event.target.files[0];
+    if (selectedFile && selectedFile.type === "application/pdf") {
+      setFile(selectedFile);
+      setUploadStatus("");
+    } else {
+      setUploadStatus("Only PDF files are allowed.");
+    }
   };
 
   const handleUpload = async () => {
@@ -52,7 +58,6 @@ function Upload() {
       const fileName = `${user.id}/Resume.pdf`;
 
       try {
-        // Check if the file already exists
         const { data: existingFile, error: checkError } = await supabase.storage
           .from("uploads")
           .list(user.id, {
@@ -63,7 +68,6 @@ function Upload() {
           throw checkError;
         }
 
-        // If the file exists, delete it
         if (existingFile && existingFile.length > 0) {
           const { error: deleteError } = await supabase.storage
             .from("uploads")
@@ -91,8 +95,9 @@ function Upload() {
         console.log("File uploaded successfully:", data);
         setUploadStatus("File Uploaded Successfully!");
 
-        // Redirect to /chat after successful upload
-        router.push("/chat");
+        setTimeout(() => {
+          router.push("/chat");
+        }, 2000);
       } catch (error) {
         console.error("Error uploading file:", error.message);
         setUploadStatus("Failed to upload file");
@@ -105,7 +110,13 @@ function Upload() {
     setIsDragging(false);
     const files = e.dataTransfer.files;
     if (files.length) {
-      setFile(files[0]);
+      const selectedFile = files[0];
+      if (selectedFile.type === "application/pdf") {
+        setFile(selectedFile);
+        setUploadStatus("");
+      } else {
+        setUploadStatus("Only PDF files are allowed.");
+      }
     }
   }, []);
 
@@ -120,24 +131,26 @@ function Upload() {
   }, []);
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col ">
       <Header />
-      <div className="overflow-x-hidden flex items-center justify-center min-h-screen ">
-        <div className="relative mx-auto max-w-screen-xl py-12 sm:py-16 xl:pb-0">
-          <div className="relative m-10 px-4 sm:px-6 lg:px-4 flex flex-col items-center">
-            <h1 className="text-3xl font-bold text-gray-800 mb-8">
+      <div className="flex-grow flex justify-center items-center">
+        <div className="relative mx-auto mt -5 justify-center max-w-screen-md py-4 sm:py-12 xl:pb-0">
+          <div className="relative  px-4 sm:px-6 lg:px-4 flex flex-col items-center">
+            <h1 className="text-3xl font-bold text-gray-100 mb-6">
               Upload your Resume here
             </h1>
             <div
               id="dropzone"
-              className={`border-2 ${isDragging ? "border-blue-500" : "border-gray-300"} p-10 w-full text-center cursor-pointer`}
+              className={`border-2 ${
+                isDragging ? "border-blue-500" : "border-gray-300"
+              } p-8 w-full text-center cursor-pointer`}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               onClick={() => document.getElementById("file-upload").click()}
             >
               <div>
-                <div className="text-1xl font-italic text-gray-800 mb-3">
+                <div className="text-1xl font-italic text-gray-200 mb-3">
                   {uploadStatus ||
                     "Drag and drop your resume here, or click to select a file"}
                 </div>
@@ -157,22 +170,23 @@ function Upload() {
             <input
               id="file-upload"
               type="file"
+              accept="application/pdf"
               onChange={handleFileChange}
               className="hidden"
             />
             {file && (
               <button
                 onClick={handleUpload}
-                className="mt-4 group flex items-center justify-center rounded py-3 px-3 text-center font-bold bg-green-600"
+                className="mt-5 group flex items-center justify-center rounded py-3 px-3 text-center font-bold bg-sky-800"
                 disabled={!file} // Optional: Disable upload button if no file selected
               >
-                <span className="text-white">Upload File</span>
+                <span className="text-gray-200 ">Upload File</span>
               </button>
             )}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

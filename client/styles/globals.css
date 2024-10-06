@@ -21,7 +21,7 @@ body {
     Droid Sans,
     Helvetica Neue,
     sans-serif;
-  background-color: black;
+    background: radial-gradient(circle, rgb(3, 20, 68), rgb(1, 16, 16));
 }
 
 a {
@@ -69,4 +69,36 @@ footer {
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.chat-box {
+  background: radial-gradient(circle, rgb(3, 20, 68), rgb(1, 16, 16));
+  color: #000000; /* Primary text color */
+  padding: 20px;
+}
+
+
+
+.chat-button {
+  background-color: #00FFFF; 
+  color: #000000; 
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-button:hover {
+  background-color: #ADD8E6;
+}
+
+.loader {
+  border-top-color: #3498db;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
