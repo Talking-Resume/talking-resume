@@ -29,7 +29,13 @@ echo "Adding changes to git..."
 git add .
 
 # Commit changes
-COMMIT_MESSAGE=${1:-"Apply linting and formatting"}
+if [ -z "$1" ]; then
+  read -p "Enter commit message: " USER_COMMIT_MESSAGE
+  COMMIT_MESSAGE=${USER_COMMIT_MESSAGE:-"Apply linting and formatting"}
+else
+  COMMIT_MESSAGE=$1
+fi
+
 echo "Committing changes with message: $COMMIT_MESSAGE"
 git commit -m "$COMMIT_MESSAGE"
 
