@@ -9,9 +9,9 @@ import axios from 'axios';
 const SummaryPage = () => {
   const [summaryData, setSummaryData] = useState({
     summary: '',
-    improvements: [],
-    strengths: [],
-    weaknesses: []
+    improvements: '',
+    strengths: '',
+    weaknesses: ''
   });
   const [error, setError] = useState('');
   const [user, setUser] = useState(null);
@@ -77,15 +77,13 @@ const SummaryPage = () => {
             </div>
           )}
           <div className="flex justify-center items-center">
-                <h2 className="mb-8 text-4xl font-bold tracking-tighter text-blue-600 lg:text-6xl md:text-5xl animate-jump-in animate-once animate-delay-800 animate-ease-linear animate-fill-both text-center">
-                  <span>Insights </span>
-                  <br className="hidden lg:block"></br>
-                </h2>
-                </div>
+            <h2 className="mb-8 text-4xl font-bold tracking-tighter text-blue-600 lg:text-6xl md:text-5xl animate-jump-in animate-once animate-delay-800 animate-ease-linear animate-fill-both text-center">
+              <span>Insights</span>
+              <br className="hidden lg:block"></br>
+            </h2>
+          </div>
           {summaryData.summary && (
             <div className="container bg-black mx-auto w-full">
-              
-             
               <div className="relative wrap overflow-hidden p-10 h-full">
                 <div
                   className="border-2-2 absolute border-opacity-20 border-white h-full border"
@@ -101,9 +99,10 @@ const SummaryPage = () => {
                     <h3 className="mb-3 font-bold text-gray-800 text-xl">
                       Summary
                     </h3>
-                    <p className="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100">
-                      {summaryData.summary}
-                    </p>
+                    <div
+                      className="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100"
+                      dangerouslySetInnerHTML={{ __html: summaryData.summary }}
+                    />
                   </div>
                 </div>
 
@@ -116,11 +115,10 @@ const SummaryPage = () => {
                     <h3 className="mb-3 font-bold text-white text-xl">
                       Improvements
                     </h3>
-                    <ul className="text-sm font-medium leading-snug tracking-wide text-white text-opacity-100 list-disc list-inside">
-                      {summaryData.improvements.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      ))}
-                    </ul>
+                    <div
+                      className="text-sm font-medium leading-snug tracking-wide text-white text-opacity-100"
+                      dangerouslySetInnerHTML={{ __html: summaryData.improvements }}
+                    />
                   </div>
                 </div>
 
@@ -133,11 +131,10 @@ const SummaryPage = () => {
                     <h3 className="mb-3 font-bold text-gray-800 text-xl">
                       Strengths
                     </h3>
-                    <ul className="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100 list-disc list-inside">
-                      {summaryData.strengths.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      ))}
-                    </ul>
+                    <div
+                      className="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100"
+                      dangerouslySetInnerHTML={{ __html: summaryData.strengths }}
+                    />
                   </div>
                 </div>
 
@@ -150,11 +147,10 @@ const SummaryPage = () => {
                     <h3 className="mb-3 font-bold text-white text-xl">
                       Weaknesses
                     </h3>
-                    <ul className="text-sm font-medium leading-snug tracking-wide text-white text-opacity-100 list-disc list-inside">
-                      {summaryData.weaknesses.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      ))}
-                    </ul>
+                    <div
+                      className="text-sm font-medium leading-snug tracking-wide text-white text-opacity-100"
+                      dangerouslySetInnerHTML={{ __html: summaryData.weaknesses }}
+                    />
                   </div>
                 </div>
               </div>
