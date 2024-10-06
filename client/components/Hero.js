@@ -8,9 +8,7 @@ function Hero() {
           <div className="ml-40">
             <h1 className=" inline max-w-sm text-3xl font-bold leading-snug text-white sm:text-6xl sm:leading-snug lg:text-5xl lg:leading-snug">
               AI-driven
-              <span className="text-blue-600 block">
-                Resume Interactions
-              </span>
+              <span className="text-blue-600 block">Resume Interactions</span>
             </h1>
             <div className="mt-10 sm:mb-20 flex">
               <button className="group flex items-center justify-center rounded py-3 px-3 text-center font-bold bg-indigo-600">
@@ -32,7 +30,6 @@ function Hero() {
               </button>
             </div>
           </div>
-         
         </div>
       </div>
     </div>

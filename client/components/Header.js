@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from 'next/navigation';
-import { supabase } from '../supabase/client';
+import { useRouter } from "next/navigation";
+import { supabase } from "../supabase/client";
 
 export default function Header() {
   const router = useRouter();
@@ -11,15 +11,19 @@ export default function Header() {
 
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       setUser(user);
     };
 
     checkUser();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user || null);
-    });
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user || null);
+      },
+    );
 
     return () => {
       authListener?.subscription?.unsubscribe();
@@ -27,19 +31,22 @@ export default function Header() {
   }, []);
 
   const handleLoginClick = () => {
-    router.push('/login');
+    router.push("/login");
   };
 
   const handleLogoutClick = async () => {
     await supabase.auth.signOut();
     setUser(null);
-    router.push('/');
+    router.push("/");
   };
 
   return (
     <header className="text-white body-font">
       <div className="container mx-auto flex flex-wrap p-5 md:flex-row">
-        <a className="flex title-font font-medium text-white mb-4 md:mb-0 pr-4" href="/">
+        <a
+          className="flex title-font font-medium text-white mb-4 md:mb-0 pr-4"
+          href="/"
+        >
           <span className="ml-3 text-3xl">Talking Resume</span>
         </a>
         <button

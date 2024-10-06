@@ -15,7 +15,6 @@ export default function Contact() {
           url: "https://Talking-Resume-1.vercel.app/404",
         }}
       />
-   
 
       <div className="flex flex-col justify-center mx-auto mt-8 mb-16 text-center max-w-2x1">
         <h1 className="mb-4 text-3xl font-bold tracking-tight text-white md:text-5xl">
@@ -34,7 +33,6 @@ export default function Contact() {
           <br></br>
         </div>
       </div>
-
     </div>
   );
 }

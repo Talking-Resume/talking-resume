@@ -2,11 +2,11 @@
 
 import Header from "@/components/Header";
 import { useState, useRef } from "react";
-import { supabase } from '../supabase/client'
+import { supabase } from "../supabase/client";
 import { useRouter } from "next/navigation";
 
 function Login() {
-  const router=useRouter();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [formState, setFormState] = useState("SEND_OTP");
@@ -31,7 +31,7 @@ function Login() {
       setError(error.error_description || error.message);
     } else {
       setFormState("LOGIN");
-      alert('Check your sms for the otp!');
+      alert("Check your sms for the otp!");
     }
     setLoading(false);
   };
@@ -47,16 +47,15 @@ function Login() {
     const { data, error } = await supabase.auth.verifyOtp({
       phone,
       token: otp,
-      type: 'sms'
+      type: "sms",
     });
 
     if (error) {
       console.error("Error verifying otp:", error);
       setError(error.error_description || error.message);
     } else {
-      alert('Successfully authenticated!');
-      router.push('upload')
-      
+      alert("Successfully authenticated!");
+      router.push("upload");
     }
     setLoading(false);
   };
@@ -68,11 +67,7 @@ function Login() {
         <div className="relative mx-auto max-w-screen-xl py-12 sm:py-16 xl:pb-0 bg-gray-100">
           <div className="relative m-10 px-4 sm:px-6 lg:px-4 flex flex-col items-center ">
             <h1 className="text-3xl font-bold text-gray-800 mb-8">Login</h1>
-            {error && (
-              <div className="mb-4 text-red-500">
-                {error}
-              </div>
-            )}
+            {error && <div className="mb-4 text-red-500">{error}</div>}
             <div className="flex flex-col items-center">
               {formState === "SEND_OTP" && (
                 <>

@@ -32,10 +32,8 @@ export default function RootLayout({ children }) {
           <div className="main-content">
             <Header />
             <Hero />
-           
-            {/* <Steps /> */}
 
-       
+            {/* <Steps /> */}
           </div>
         </div>
       </body>

@@ -1,22 +1,24 @@
 import Header from "@/components/Header";
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { supabase } from "@/supabase/client";
-import axios from 'axios';
+import axios from "axios";
 
 function Chat() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState(null);
-  const [isGenerating, setIsGenerating] = useState(false); 
+  const [isGenerating, setIsGenerating] = useState(false);
   const router = useRouter();
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       if (!user) {
-        router.push('/login');
+        router.push("/login");
       } else {
         setUser(user);
       }
@@ -24,13 +26,15 @@ function Chat() {
 
     checkUser();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (!session?.user) {
-        router.push('/login');
-      } else {
-        setUser(session.user);
-      }
-    });
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (!session?.user) {
+          router.push("/login");
+        } else {
+          setUser(session.user);
+        }
+      },
+    );
 
     return () => {
       authListener?.subscription?.unsubscribe();
@@ -46,7 +50,7 @@ function Chat() {
       setIsGenerating(true);
 
       const newMessage = {
-        sender: 'user',
+        sender: "user",
         user: user.phone,
         content: message,
         timestamp: new Date().toISOString(),
@@ -55,9 +59,9 @@ function Chat() {
       setMessages([...messages, newMessage]);
 
       const typingMessage = {
-        sender: 'ai',
-        user: 'AI',
-        content: 'AI is typing...',
+        sender: "ai",
+        user: "AI",
+        content: "AI is typing...",
         timestamp: new Date().toISOString(),
       };
       setMessages((prevMessages) => [...prevMessages, typingMessage]);
@@ -65,39 +69,44 @@ function Chat() {
       setMessage("");
 
       try {
-        const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+        const { data: sessionData, error: sessionError } =
+          await supabase.auth.getSession();
         if (sessionError) {
           throw sessionError;
         }
 
-        const response = await axios.post(`${process.env.API_BASE_URL}/chat`, {
-          question: message,
-        }, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${sessionData.session.access_token}`,
+        const response = await axios.post(
+          `${process.env.API_BASE_URL}/chat`,
+          {
+            question: message,
           },
-        });
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${sessionData.session.access_token}`,
+            },
+          },
+        );
 
         let aiContent = response.data.response
-        .replace(/\n/g, "<br />")
-        .replace(/### (.*?)(<br \/>|$)/g, "<h3>$1</h3>")
-        .replace(/## (.*?)(<br \/>|$)/g, "<h2>$1</h2>")
-        .replace(/# (.*?)(<br \/>|$)/g, "<h1>$1</h1>")
-        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
-        .replace(/\*(.*?)\*/g, "<i>$1$i>")
-        .replace(/__(.*?)__/g, "<u>$1</u>");
+          .replace(/\n/g, "<br />")
+          .replace(/### (.*?)(<br \/>|$)/g, "<h3>$1</h3>")
+          .replace(/## (.*?)(<br \/>|$)/g, "<h2>$1</h2>")
+          .replace(/# (.*?)(<br \/>|$)/g, "<h1>$1</h1>")
+          .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+          .replace(/\*(.*?)\*/g, "<i>$1$i>")
+          .replace(/__(.*?)__/g, "<u>$1</u>");
 
         const aiMessage = {
-          sender: 'ai',
-          user: 'AI',
+          sender: "ai",
+          user: "AI",
           content: aiContent,
           timestamp: new Date().toISOString(),
         };
 
         setMessages((prevMessages) => [
-          ...prevMessages.slice(0, -1), 
-          aiMessage
+          ...prevMessages.slice(0, -1),
+          aiMessage,
         ]);
       } catch (error) {
         console.error("Error sending message:", error);
@@ -110,7 +119,7 @@ function Chat() {
 
   const handleSummary = async () => {
     try {
-      router.push('/summary');
+      router.push("/summary");
     } catch (error) {
       console.error("Error navigating to summary page:", error);
     }
@@ -119,7 +128,7 @@ function Chat() {
   return (
     <div className="chat-container min-h-screen flex flex-col ">
       <Header />
-      
+
       {/* Summarize Button */}
       <div className="flex justify-center items-center my-4">
         <button
@@ -134,7 +143,12 @@ function Chat() {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4h16M4 8h16M4 12h16M4 16h16M4 20h16" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 4h16M4 8h16M4 12h16M4 16h16M4 20h16"
+            />
           </svg>
         </button>
       </div>
@@ -148,19 +162,28 @@ function Chat() {
                 <div
                   key={index}
                   className={`chat-message flex items-end mb-4 ${
-                    msg.sender === 'user' ? 'justify-end' : 'justify-start'
+                    msg.sender === "user" ? "justify-end" : "justify-start"
                   }`}
                 >
-                  <div className={`chat-bubble p-4 rounded-lg ${
-                    msg.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'
-                  }`}>
+                  <div
+                    className={`chat-bubble p-4 rounded-lg ${
+                      msg.sender === "user"
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200 text-black"
+                    }`}
+                  >
                     <div className="text-sm text-gray-500">{msg.user}</div>
-                    {msg.sender === 'ai' ? (
-                      <div className="text-lg" dangerouslySetInnerHTML={{ __html: msg.content }} />
+                    {msg.sender === "ai" ? (
+                      <div
+                        className="text-lg"
+                        dangerouslySetInnerHTML={{ __html: msg.content }}
+                      />
                     ) : (
                       <div className="text-lg">{msg.content}</div>
                     )}
-                    <div className="text-xs text-gray-500">{new Date(msg.timestamp).toLocaleTimeString()}</div>
+                    <div className="text-xs text-gray-500">
+                      {new Date(msg.timestamp).toLocaleTimeString()}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -176,12 +199,11 @@ function Chat() {
                 className="flex-grow rounded py-2 px-4 border border-gray-300 focus:border-blue-500 outline-none"
                 placeholder="Message TR..."
               />
-                <button
+              <button
                 onClick={handleSendMessage}
                 className="ml-4 group flex items-center justify-center rounded py-2 px-4 text-center font-bold bg-blue-500 text-white hover:bg-blue-600"
                 disabled={isGenerating} // Disable button while generating
               >
-             
                 <svg
                   className="h-6 w-6"
                   xmlns="http://www.w3.org/2000/svg"
@@ -189,8 +211,12 @@ function Chat() {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"   d="M5 12h14M12 5l7 7-7 7"
- />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 12h14M12 5l7 7-7 7"
+                  />
                 </svg>
               </button>
             </div>
