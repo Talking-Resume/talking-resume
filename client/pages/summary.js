@@ -34,7 +34,7 @@ const SummaryPage = () => {
         }
 
         if (sessionData?.session?.access_token) {
-          const response = await axios.get('http://127.0.0.1:8000/summary', {
+          const response = await axios.get(`${process.env.API_BASE_URL}/summary`, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${sessionData.session.access_token}`,

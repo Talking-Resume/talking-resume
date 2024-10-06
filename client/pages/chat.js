@@ -70,7 +70,7 @@ function Chat() {
           throw sessionError;
         }
 
-        const response = await axios.post('http://127.0.0.1:8000/chat', {
+        const response = await axios.post(`${process.env.API_BASE_URL}/chat`, {
           question: message,
         }, {
           headers: {
