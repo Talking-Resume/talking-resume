@@ -139,7 +139,7 @@ function Chat() {
 
       {/* Chat Box */}
       <div className="flex flex-col flex-grow items-center justify-center">
-        <div className="chat-box bg-white rounded-lg shadow-lg w-full max-w-4xl p-4 border border-gray-200">
+        <div className="chat-box rounded-lg shadow-lg w-full max-w-4xl p-4 border border-gray-200">
           <div className="chat-wrapper flex flex-col h-full">
             <div className="chat-history overflow-y-auto px-4 py-8 flex-grow">
               {messages.map((msg, index) => (
