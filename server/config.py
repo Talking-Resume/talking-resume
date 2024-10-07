@@ -1,3 +1,5 @@
+import base64
+import json
 import os
 
 import vertexai
@@ -9,6 +11,18 @@ from langchain_google_vertexai import ChatVertexAI
 from supabase import create_client
 
 load_dotenv()
+
+credentials_json = base64.b64decode(
+    os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON")
+)
+
+# Write the JSON credentials to a file
+credentials_path = "google_credentials.json"
+with open(credentials_path, "wb") as f:
+    f.write(credentials_json)
+
+# Set the GOOGLE_APPLICATION_CREDENTIALS environment variable to the path of the credentials file
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path
 
 # Initialize Supabase client
 url: str = os.environ.get("SUPABASE_URL")
