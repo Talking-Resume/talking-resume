@@ -38,20 +38,25 @@ function Hero() {
   };
 
   return (
-    <div className="overflow-x-hidden ">
-      <div className="relative mx-auto max-w-screen-xl py-12 sm:py-16 xl:pb-0">
-        <div className="relative m-10 px-4 sm:px-6 lg:px-4 flex items-center">
-          <div className="ml-40">
+    <div className="overflow-x-hidden flex accordion-up  animate-pulse animate-bounce animate-duration-[4000ms] animate-ease-linear">
+      <div className="relative   mx-auto max-w-screen-xl py-12 sm:py-16 xl:pb-0 ">
+        <div className="relative m-10 px-4 sm:px-6  flex items-center justify-center ">
+          <div className="ml-0 lg:ml-30 text-center ">
             <h1 className="inline max-w-sm text-3xl font-bold leading-snug text-white sm:text-6xl sm:leading-snug lg:text-5xl lg:leading-snug">
-              AI-driven
-              <span className="text-blue-600 block">Resume Interactions</span>
+              An Interactive AI Assistant
+              <span className="text-blue-600 block">
+                {" "}
+                Helping you Craft Your Resume
+              </span>
             </h1>
-            <div className="mt-10 sm:mb-20 flex">
+            <div className="mt-10 sm:mb-20 flex justify-center">
               <button
                 className="group flex items-center justify-center rounded py-3 px-3 text-center font-bold bg-blue-600"
                 onClick={handleExploreClick}
               >
-                <span className="text-white">Explore</span>
+                <span className="text-white inline-center justify-center">
+                  Explore
+                </span>
               </button>
             </div>
           </div>
