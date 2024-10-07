@@ -104,14 +104,14 @@ const SummaryPage = () => {
                       style={{ left: "50%" }}
                     ></div>
 
-                    <div className="mb-8 flex justify-between items-center w-full right-timeline">
-                      <div className="order-1 w-5/12"></div>
-                      <div className="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full">
-                        <h1 className="mx-auto font-semibold text-lg text-white">
+                    <div className="mb-8 flex justify-between items-center w-full lg:right-timeline">
+                      <div className="order-1 lg:w-5/12"></div>
+                      <div className="hidden lg:z-20 lg:flex lg:items-center lg:order-1 lg:bg-blue-600 lg:shadow-xl lg:w-8 lg:h-8 lg:rounded-full">
+                        <h1 className=" lg:mx-auto lg:font-semibold text-lg lg:text-white">
                           1
                         </h1>
                       </div>
-                      <div className="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4 animate-wiggle animate-thrice animate-duration-[5000ms] animate-ease-linear">
+                      <div className="order-1 bg-white rounded-lg shadow-xl lg:w-5/12 px-6 py-4 animate-wiggle animate-infinite animate-duration-[5000ms] animate-ease-linear">
                         <h3 className="mb-3 font-bold text-gray-800 text-xl">
                           Summary
                         </h3>
@@ -124,14 +124,14 @@ const SummaryPage = () => {
                       </div>
                     </div>
 
-                    <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                    <div className="mb-8 flex justify-between flex-row-reverse items-center w-full lg:left-timeline">
                       <div className="order-1 w-5/12"></div>
-                      <div className="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full">
+                      <div className="hidden lg:z-20 lg:flex lg:items-center lg:order-1 lg:bg-blue-600 lg:shadow-xl lg:w-8 lg:h-8 lg:rounded-full">
                         <h1 className="mx-auto text-white font-semibold text-lg">
                           2
                         </h1>
                       </div>
-                      <div className="order-1 bg-blue-600 rounded-lg shadow-xl w-5/12 px-6 py-4 animate-wiggle animate-thrice animate-duration-[5000ms] animate-ease-linear">
+                      <div className="order-1 bg-blue-600 rounded-lg shadow-xl lg:w-5/12 px-6 py-4 animate-wiggle animate-infinite animate-duration-[5000ms] animate-ease-linear">
                         <h3 className="mb-3 font-bold text-white text-xl">
                           Improvements
                         </h3>
@@ -144,14 +144,14 @@ const SummaryPage = () => {
                       </div>
                     </div>
 
-                    <div className="mb-8 flex justify-between items-center w-full right-timeline">
-                      <div className="order-1 w-5/12"></div>
-                      <div className="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full">
+                    <div className="mb-8 flex justify-between items-center w-full lg:right-timeline">
+                      <div className="order-1 lg:w-5/12"></div>
+                      <div className="hidden lg:z-20 lg:flex lg:items-center lg:order-1 lg:bg-blue-600 lg:shadow-xl lg:w-8 lg:h-8 lg:rounded-full">
                         <h1 className="mx-auto font-semibold text-lg text-white">
                           3
                         </h1>
                       </div>
-                      <div className="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4 animate-wiggle animate-thrice animate-duration-[5000ms] animate-ease-linear">
+                      <div className="order-1 bg-white rounded-lg shadow-xl lg:w-5/12 px-6 py-4 animate-wiggle animate-infinite animate-duration-[5000ms] animate-ease-linear">
                         <h3 className="mb-3 font-bold text-gray-800 text-xl">
                           Strengths
                         </h3>
@@ -164,14 +164,14 @@ const SummaryPage = () => {
                       </div>
                     </div>
 
-                    <div className="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                    <div className="mb-8 flex justify-between flex-row-reverse items-center w-full lg:left-timeline">
                       <div className="order-1 w-5/12"></div>
-                      <div className="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full">
+                      <div className="hidden lg:z-20 lg:flex lg:items-center lg:order-1 lg:bg-blue-600 lg:shadow-xl lg:w-8 lg:h-8 lg:rounded-full">
                         <h1 className="mx-auto text-white font-semibold text-lg">
                           4
                         </h1>
                       </div>
-                      <div className="order-1 bg-blue-600 rounded-lg shadow-xl w-5/12 px-6 py-4 animate-wiggle animate-thrice animate-duration-[5000ms] animate-ease-linear">
+                      <div className="order-1 bg-blue-600 rounded-lg shadow-xl lg:w-5/12 px-6 py-4 animate-wiggle animate-infinite animate-duration-[5000ms] animate-ease-linear">
                         <h3 className="mb-3 font-bold text-white text-xl">
                           Weaknesses
                         </h3>
